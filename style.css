@@ -1,301 +1,101 @@
-:root {
-    --primary-color: rgb(254, 155, 0);
-    --primary-dark: rgb(220, 135, 0);
-    --text-color: #333;
-    --light-bg: #f9f9f9;
-    --dark-bg: #222;
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CasualScript | Главная</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo"><i class="fa-solid fa-code"></i> CasualScript</div>
+        <nav class="nav-links">
+            <a href="#features">Преимущества</a>
+            <a href="#pricing">Тарифы</a>
+            <a href="#about">О нас</a>
+        </nav>
+    </header>
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
+    <section class="hero">
+        <h1>Скрипт, который работает</h1>
+        <p>Удобный, быстрый и безопасный бот для выполнения ваших задач в Roblox и не только.</p>
+        <a href="#pricing" class="telegram-btn"><i class="fa-brands fa-telegram"></i> Купить сейчас</a>
+    </section>
 
-body {
-    color: var(--text-color);
-    line-height: 1.6;
-}
+    <section id="features" class="features">
+        <div class="section-title">
+            <h2>Почему мы?</h2>
+            <p>Узнайте, почему CasualScript — лучший выбор для вас</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Безопасность</h3>
+                <p>Мы не собираем ваши данные. Скрипт полностью безопасен и анонимный.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Скорость</h3>
+                <p>Мгновенная работа скрипта без задержек. Оптимизирован под все устройства.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-gear"></i></div>
+                <h3>Поддержка</h3>
+                <p>Вы можете задать любой вопрос — мы всегда готовы помочь.</p>
+            </div>
+        </div>
+    </section>
 
-header {
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+    <section id="pricing" class="pricing">
+        <div class="section-title">
+            <h2>Тарифы</h2>
+            <p>Выберите подходящий тариф и начните прямо сейчас</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Начальный</h3>
+                <div class="price">50₽ <span>/ навсегда</span></div>
+                <ul class="pricing-features">
+                    <li>Базовые функции</li>
+                    <li>Быстрый старт</li>
+                    <li>Поддержка</li>
+                </ul>
+                <a href="#" class="pricing-btn">Купить</a>
+            </div>
 
-.logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--primary-color);
-}
+            <div class="pricing-card popular">
+                <h3>Стандарт</h3>
+                <div class="price">100₽ <span>/ навсегда</span></div>
+                <ul class="pricing-features">
+                    <li>Все функции</li>
+                    <li>Приоритетная поддержка</li>
+                    <li>Обновления</li>
+                </ul>
+                <a href="#" class="pricing-btn">Купить</a>
+            </div>
 
-nav a {
-    margin-left: 1.5rem;
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    transition: color 0.3s;
-}
+            <div class="pricing-card">
+                <h3>Максимум</h3>
+                <div class="price">150₽ <span>/ навсегда</span></div>
+                <ul class="pricing-features">
+                    <li>Полный доступ</li>
+                    <li>Эксклюзивные функции</li>
+                    <li>Поддержка 24/7</li>
+                </ul>
+                <a href="#" class="pricing-btn">Купить</a>
+            </div>
+        </div>
+    </section>
 
-nav a:hover {
-    color: var(--primary-color);
-}
-
-.hero {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bg.jpg');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-align: center;
-    padding: 6rem 2rem;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    letter-spacing: 2px;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0 auto 2rem;
-}
-
-.hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.buy-button, .details-button {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
-    border: 2px solid var(--primary-color);
-}
-
-.buy-button {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.buy-button:hover {
-    background-color: var(--primary-dark);
-    border-color: var(--primary-dark);
-}
-
-.details-button {
-    background-color: transparent;
-    color: white;
-}
-
-.details-button:hover {
-    background-color: rgba(255,255,255,0.1);
-}
-
-section {
-    padding: 4rem 2rem;
-}
-
-h2 {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.features p, .products > p {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 3rem;
-    color: #666;
-}
-
-.feature-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.feature-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 2rem;
-    transition: transform 0.3s;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-}
-
-.feature-card h3 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-}
-
-.product-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.product-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 2rem;
-    text-align: center;
-    transition: all 0.3s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-.product-card.highlighted {
-    border: 2px solid var(--primary-color);
-    position: relative;
-}
-
-.product-card h3 {
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
-}
-
-.product-card p {
-    margin-bottom: 1.5rem;
-    color: #666;
-}
-
-.price {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-}
-
-.old-price {
-    text-decoration: line-through;
-    font-size: 1.2rem;
-    color: #999;
-    margin-left: 0.5rem;
-}
-
-.product-card button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0.8rem 2rem;
-    width: 100%;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.product-card button:hover {
-    background-color: var(--primary-dark);
-}
-
-footer {
-    background-color: var(--dark-bg);
-    color: white;
-    padding: 3rem 2rem 1rem;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
-}
-
-.disclaimer p {
-    margin-bottom: 1rem;
-    color: #aaa;
-}
-
-.footer-links {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.links-column {
-    display: flex;
-    flex-direction: column;
-}
-
-.links-column h4 {
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-}
-
-.links-column a {
-    color: #ccc;
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s;
-}
-
-.links-column a:hover {
-    color: white;
-}
-
-.copyright {
-    text-align: center;
-    margin-top: 3rem;
-    padding-top: 1rem;
-    border-top: 1px solid #444;
-    color: #777;
-}
-
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        padding: 1rem;
-    }
-    
-    nav {
-        margin-top: 1rem;
-    }
-    
-    nav a {
-        margin: 0 0.5rem;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .feature-cards, .product-cards {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-links {
-        grid-template-columns: 1fr;
-    }
-}
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">CasualScript</div>
+            <div class="footer-about">
+                <p>Проект создавался для удобства. Мы не храним информацию и не передаем её третьим лицам.</p>
+            </div>
+        </div>
+        <p class="disclaimer">© 2025 CasualScript. Все права защищены.</p>
+    </footer>
+</body>
+</html>
