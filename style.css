@@ -98,7 +98,34 @@
         <p class="disclaimer">© 2025 CasualScript. Все права защищены.</p>
     </footer>
 </body>
+/* Плавная прокрутка */
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
+}
+
+/* Стили для кнопки "Купить" */
+.buy {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.buy i {
+    margin-right: 8px;
+}
+
+.buy:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+.buy:active {
+    transform: scale(1);
 }
 </html>
