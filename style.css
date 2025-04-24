@@ -98,4 +98,7 @@
         <p class="disclaimer">© 2025 CasualScript. Все права защищены.</p>
     </footer>
 </body>
+html {
+  scroll-behavior: smooth;
+}
 </html>
