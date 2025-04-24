@@ -3,115 +3,557 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CasualScript - Клиент для Minecraft</title>
-    <link rel="stylesheet" href="style.css">
+    <title>CasualScript | Официальный бот</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: rgb(254, 155, 0);
+            --primary-dark: rgb(220, 135, 0);
+            --bg: #121212;
+            --card-bg: #1e1e1e;
+            --text: #e0e0e0;
+            --text-secondary: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(254, 155, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(254, 155, 0, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary), #ff8c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+            color: var(--text-secondary);
+        }
+
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(254, 155, 0, 0.3);
+        }
+
+        .telegram-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(254, 155, 0, 0.4);
+        }
+
+        .telegram-btn i {
+            font-size: 1.5rem;
+        }
+
+        .features {
+            padding: 6rem 5%;
+            background-color: var(--bg);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: rgba(254, 155, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+
+        .pricing {
+            padding: 6rem 5%;
+            background-color: #0f0f0f;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        }
+
+        .pricing-card.popular {
+            border: 1px solid rgba(254, 155, 0, 0.3);
+            box-shadow: 0 0 30px rgba(254, 155, 0, 0.1);
+        }
+
+        .pricing-card.popular::after {
+            content: 'Выгодно';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.3rem 2rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            color: var(--primary);
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            list-style: none;
+            margin-bottom: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .pricing-btn {
+            display: block;
+            text-align: center;
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(254, 155, 0, 0.3);
+        }
+
+        .disclaimer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background-color: #0a0a0a;
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-about p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo">CasualScript</div>
-        <nav>
-            <a href="#about">О клиенте</a>
-            <a href="#features">Преимущества</a>
-            <a href="#products">Товары</a>
-            <a href="#contacts">Контакты</a>
-        </nav>
-    </header>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-code"></i>
+            CasualScript
+        </div>
+        <div class="nav-links">
+            <a href="#features">Возможности</a>
+            <a href="#pricing">Тарифы</a>
+            <a href="https://t.me/CasualScript_Bot" target="_blank">Бот</a>
+        </div>
+    </nav>
 
-    <main>
-        <section class="hero">
-            <h1>CASUALSCRIPT CLIENT</h1>
-            <p>Наслаждайтесь каждой минутой игрового процесса с нашим клиентом, созданным для вашего комфорта и удовольствия</p>
-            <div class="hero-buttons">
-                <button class="buy-button">Купить →</button>
-                <button class="details-button">Подробнее</button>
-            </div>
-        </section>
+    <section class="hero">
+        <h1>Лучший клиент для вашей игры</h1>
+        <p>Испытайте новые возможности с CasualScript - оптимизированный, настраиваемый и мощный клиент для истинных ценителей</p>
+        <a href="https://t.me/CasualScript_Bot" class="telegram-btn">
+            <i class="fab fa-telegram"></i>
+            Перейти в бота
+        </a>
+    </section>
 
-        <section id="features" class="features">
-            <h2>Почему стоит выбрать нас?</h2>
-            <p>Предлагаем почитать ниже наши преимущества</p>
-            
-            <div class="feature-cards">
-                <div class="feature-card">
-                    <h3>Красивый внешний вид</h3>
-                    <p>В нашем клиенте присутствует большое количество визуальных функций, которые сделают вашу игру более красочной. А так же вы можете настроить оформление клиента под себя.</p>
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Наши преимущества</h2>
+            <p>CasualScript предлагает уникальные возможности, которые выделяют нас среди конкурентов</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-paint-brush"></i>
                 </div>
-                
-                <div class="feature-card">
-                    <h3>Оптимизация</h3>
-                    <p>Мы постоянно улучшаем оптимизацию нашего клиента и самой игры. Благодаря этому вы сможете запустить наш клиент даже на слабых компьютерах.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <h3>Настраиваемость</h3>
-                    <p>В нашем клиенте вы можете настроить практически любую функцию под себя, а так же использовать конфигурации других пользователей.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <h3>Частые обновления</h3>
-                    <p>Мы регулярно обновляем функционал нашего клиента, совершенствуя уже существующие возможности.</p>
-                </div>
+                <h3>Красивый интерфейс</h3>
+                <p>Современный темный дизайн с возможностью полной кастомизации под ваш стиль</p>
             </div>
-        </section>
-
-        <section id="products" class="products">
-            <h2>Наши продукты</h2>
-            
-            <div class="product-cards">
-                <div class="product-card">
-                    <h3>CasualScript навсегда</h3>
-                    <p>Вы получите клиент абсолютно навсегда, так же все последующие обновления.</p>
-                    <div class="price">50кк</div>
-                    <button>Приобрести</button>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
                 </div>
-                
-                <div class="product-card highlighted">
-                    <h3>CasualScript 3 недели</h3>
-                    <p>Вы получаете клиент на 21 день, все обновления на этот период.</p>
-                    <div class="price">15кк <span class="old-price">20кк</span></div>
-                    <button>Лучшее предложение</button>
-                </div>
-                
-                <div class="product-card">
-                    <h3>CasualScript 1 неделя</h3>
-                    <p>Вы получаете клиент на 7 дней, все обновления на этот период.</p>
-                    <div class="price">5кк</div>
-                    <button>Приобрести</button>
-                </div>
+                <h3>Максимальная оптимизация</h3>
+                <p>Работает даже на слабых устройствах без потери производительности</p>
             </div>
-        </section>
-    </main>
-
-    <footer id="contacts">
-        <div class="footer-content">
-            <div class="disclaimer">
-                <p>Наш продукт не связан с Mojang AB. Все средства идут на развитие проекта.</p>
-                <p>Email: casual@casualscript.fun</p>
-            </div>
-            
-            <div class="footer-links">
-                <div class="links-column">
-                    <h4>Навигация</h4>
-                    <a href="#">Главная</a>
-                    <a href="#products">Товары</a>
-                    <a href="#features">Наши качества</a>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sliders-h"></i>
                 </div>
-                
-                <div class="links-column">
-                    <h4>Документы</h4>
-                    <a href="#">Пользовательское соглашение</a>
-                    <a href="#">Обработка данных</a>
-                </div>
-                
-                <div class="links-column">
-                    <h4>Социальные сети</h4>
-                    <a href="#">Telegram</a>
-                    <a href="#">Discord</a>
-                    <a href="#">VK</a>
-                </div>
+                <h3>Гибкие настройки</h3>
+                <p>Сотни параметров для тонкой настройки под ваши предпочтения</p>
             </div>
         </div>
-        
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="section-title">
+            <h2>Наши тарифы</h2>
+            <p>Выберите подходящий вариант доступа к CasualScript</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>1 Неделя</h3>
+                <div class="price">5кк</div>
+                <ul class="pricing-features">
+                    <li>Полный доступ на 7 дней</li>
+                    <li>Все функции клиента</li>
+                    <li>Базовая поддержка</li>
+                </ul>
+                <a href="https://t.me/CasualScript_Bot" class="pricing-btn">Приобрести</a>
+            </div>
+            <div class="pricing-card popular">
+                <h3>3 Недели</h3>
+                <div class="price">15кк <span>вместо 20кк</span></div>
+                <ul class="pricing-features">
+                    <li>Доступ на 21 день</li>
+                    <li>Все функции клиента</li>
+                    <li>Приоритетная поддержка</li>
+                    <li>Экономия 5кк</li>
+                </ul>
+                <a href="https://t.me/CasualScript_Bot" class="pricing-btn">Лучший выбор</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Навсегда</h3>
+                <div class="price">50кк</div>
+                <ul class="pricing-features">
+                    <li>Пожизненный доступ</li>
+                    <li>Все текущие и будущие функции</li>
+                    <li>Эксклюзивные возможности</li>
+                    <li>VIP поддержка 24/7</li>
+                    <li>Доступ к бета-тестам</li>
+                </ul>
+                <a href="https://t.me/CasualScript_Bot" class="pricing-btn">Приобрести</a>
+            </div>
+        </div>
+        <div class="disclaimer">
+            <p>Наш продукт не связан с Mojang AB. Все средства идут на развитие проекта.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">CasualScript</div>
+                <p>Лучший клиент для вашего игрового опыта с 2023 года</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="#features">Возможности</a></li>
+                    <li><a href="#pricing">Тарифы</a></li>
+                    <li><a href="https://t.me/CasualScript_Bot">Telegram бот</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Документы</h4>
+                <ul>
+                    <li><a href="#">Пользовательское соглашение</a></li>
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+        </div>
         <div class="copyright">
             <p>&copy; 2023 CasualScript. Все права защищены.</p>
         </div>
