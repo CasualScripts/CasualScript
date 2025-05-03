@@ -3,100 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Потужнометр Україна</title>
+    <title>ПОТУЖНОМЕТР | Україна</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #121212;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 20px;
             margin: 0;
+            overflow: hidden;
         }
         .container {
-            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            padding: 30px;
-            text-align: center;
-            width: 280px;
-            border: 1px solid #333;
+            max-width: 300px;
+            margin: 0 auto;
+            border: 2px solid #0f0;
+            padding: 20px;
+            position: relative;
         }
         .title {
             font-size: 24px;
-            font-weight: bold;
             margin-bottom: 5px;
-            color: #4CAF50;
+            text-shadow: 0 0 5px #0f0;
         }
         .model {
-            font-size: 16px;
-            margin-bottom: 25px;
-            color: #aaa;
-            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #0f0;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
         }
         .value {
             font-size: 72px;
-            font-weight: bold;
             margin: 20px 0;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            color: #0f0;
         }
         .label {
-            font-size: 14px;
-            color: #4CAF50;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-        .section {
-            margin: 25px 0;
-        }
-        .touch {
-            font-size: 18px;
-            color: #FF9800;
-            margin: 15px 0;
-        }
-        .mode {
             font-size: 16px;
-            color: #aaa;
             margin: 10px 0;
         }
-        .timer {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            color: #888;
-            margin-top: 20px;
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .mode-btn {
+            background: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .mode-btn.active {
+            background: #0f0;
+            color: #000;
         }
         .footer {
-            font-size: 10px;
-            color: #555;
+            font-size: 12px;
             margin-top: 30px;
+            color: #555;
         }
         .author {
-            font-size: 9px;
-            color: #444;
-            margin-top: 5px;
+            font-size: 10px;
+            color: #333;
+        }
+        .glitch {
+            animation: glitch 1s linear infinite;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 0 0 5px #0f0; }
+            25% { text-shadow: -2px 0 5px #f00, 2px 0 5px #00f; }
+            100% { text-shadow: 0 0 5px #0f0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">ПОТУЖНОМЕТР</div>
-        <div class="model">ПМ-ν2.2.0</div>
-        
-        <div class="section">
+        <!-- Режим 1 (v2.2.0) -->
+        <div class="mode" id="mode1">
+            <div class="title">ПОТУЖНОМЕТР</div>
+            <div class="model">ПМ–v2 . 2 . 0</div>
             <div class="label">ПТЖ</div>
             <div class="value">25</div>
+            <div class="label">ДОТИК</div>
+            <div class="label">РЕЖИМ</div>
+            <div class="label">00:01/00:11</div>
         </div>
-        
-        <div class="touch">ДОТИК</div>
-        <div class="mode">РЕЖИМ</div>
-        
-        <div class="timer">00:01/00:11</div>
-        
+
+        <!-- Режим 2 (2025) -->
+        <div class="mode" id="mode2" style="display:none;">
+            <div class="title glitch">ПОТУЖНОМЕТР</div>
+            <div class="model">ПМ-2025</div>
+            <div class="label">КОМУ 4АТЬ программу?</div>
+            <div class="value">8</div>
+            <div class="label">ПТЖ</div>
+            <div class="label">ЧУТЛИВІСТЬ x1.0</div>
+        </div>
+
+        <!-- Режим 3 (W7M8C1s) -->
+        <div class="mode" id="mode3" style="display:none;">
+            <div class="title">ПОТУЖНОМЕТР</div>
+            <div class="model">ПМ-2025</div>
+            <div class="value">92</div>
+            <div class="label">ПТЖ</div>
+            <div class="label">W7M8C1s x1.0</div>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" onclick="switchMode(1)">v2.2.0</button>
+            <button class="mode-btn" onclick="switchMode(2)">2025</button>
+            <button class="mode-btn" onclick="switchMode(3)">W7M8</button>
+        </div>
+
         <div class="footer">MADE BY CHIPS | UKRAINE</div>
         <div class="author">by PavelDIPF</div>
     </div>
+
+    <script>
+        function switchMode(modeNum) {
+            // Скрыть все режимы
+            document.querySelectorAll('.mode').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Показать выбранный
+            document.getElementById('mode' + modeNum).style.display = 'block';
+            
+            // Обновить активную кнопку
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Автопереключение (можно удалить)
+        let currentMode = 1;
+        setInterval(() => {
+            currentMode = currentMode % 3 + 1;
+            switchMode(currentMode);
+        }, 5000);
+    </script>
 </body>
 </html>
