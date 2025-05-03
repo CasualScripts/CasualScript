@@ -5,22 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Потужнометр ПМ-2025</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>ПОТУЖНОМЕТР</h1>
-        <h2>ПМ-2025</h2>
-        <div class="divider"></div>
-        <div class="value-container">
-            <div id="value">0</div>
-            <div class="unit">ПТЖ</div>
+    <div class="potuzhnometer">
+        <!-- Основний контейнер -->
+        <div class="device-container">
+            <!-- Заголовок -->
+            <div class="header">
+                <h1 class="title">ПОТУЖНОМЕТР</h1>
+                <h2 class="model">ПМ-2025</h2>
+            </div>
+            
+            <!-- Роздільник -->
+            <div class="divider"></div>
+            
+            <!-- Відображення значення -->
+            <div class="value-display">
+                <div class="ptz-value" id="ptzValue">0</div>
+                <div class="ptz-unit">ПТЖ</div>
+            </div>
+            
+            <!-- Налаштування чутливості -->
+            <div class="sensitivity-control">
+                <div class="sensitivity-label">ЧУТЛИВІСТЬ</div>
+                <div class="sensitivity-value" id="sensitivityValue">×2.0</div>
+            </div>
+            
+            <!-- Кнопка збільшення -->
+            <div class="increase-btn" id="increaseBtn">
+                <span class="btn-icon">⬆️</span>
+                <span class="btn-text">ЗБІЛЬШИТИ</span>
+            </div>
+            
+            <!-- Футер -->
+            <div class="footer">
+                <span class="made-by">MADE BY CHIPS</span>
+                <span class="emoji">⚡🔋💪</span>
+            </div>
+            
+            <!-- Анімаційні ефекти -->
+            <div class="particles" id="particles"></div>
+            <div class="glow-effect"></div>
         </div>
-        <div class="sensitivity">
-            <div>ЧУТЛИВІСТЬ</div>
-            <div id="sensitivity">×2.0</div>
+        
+        <!-- Панель налаштувань -->
+        <div class="settings-panel" id="settingsPanel">
+            <div class="settings-header">
+                <h3>НАЛАШТУВАННЯ</h3>
+                <button class="close-btn" id="closeSettings">✖️</button>
+            </div>
+            <div class="settings-content">
+                <div class="setting-item">
+                    <label for="sensitivityRange">Чутливість:</label>
+                    <input type="range" id="sensitivityRange" min="0.5" max="3" step="0.5" value="2">
+                    <span id="sensitivityDisplay">×2.0</span>
+                </div>
+                <div class="setting-item">
+                    <label for="colorTheme">Колірна схема:</label>
+                    <select id="colorTheme">
+                        <option value="default">Стандартна</option>
+                        <option value="red">Червона</option>
+                        <option value="blue">Блакитна</option>
+                        <option value="green">Зелена</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="animationSpeed">Швидкість анімації:</label>
+                    <input type="range" id="animationSpeed" min="1" max="10" value="5">
+                </div>
+            </div>
         </div>
-        <div class="footer">MADE BY CHIPS</div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
