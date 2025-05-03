@@ -1,45 +1,395 @@
+/* Глобальні стилі */
+:root {
+    --main-bg-color: #121212;
+    --device-bg-color: #1e1e1e;
+    --text-color: #e0e0e0;
+    --accent-color: #ff5722;
+    --divider-color: #333;
+    --ptz-color: #4caf50;
+    --sensitivity-color: #2196f3;
+    --btn-color: #ff9800;
+    --btn-hover-color: #ffb74d;
+    --glow-color: rgba(255, 87, 34, 0.3);
+    --particle-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Тіло сторінки */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    overflow: hidden;
+    position: relative;
 }
-.container {
+
+/* Основний контейнер пристрою */
+.potuzhnometer {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    perspective: 1000px;
+}
+
+.device-container {
+    background-color: var(--device-bg-color);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.device-container:hover {
+    transform: translateY(-5px) rotateX(5deg);
+}
+
+/* Заголовок */
+.header {
     text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    margin-bottom: 20px;
 }
-h1, h2 {
-    margin: 5px 0;
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--glow-color);
 }
+
+.model {
+    font-size: 18px;
+    margin: 5px 0 0;
+    opacity: 0.8;
+}
+
+/* Роздільник */
 .divider {
-    height: 1px;
-    background-color: #000;
-    margin: 10px 0;
-}
-.value-container {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--divider-color), transparent);
     margin: 20px 0;
+    position: relative;
 }
-#value {
-    font-size: 48px;
-    font-weight: bold;
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
 }
-.unit {
+
+/* Відображення значення */
+.value-display {
+    text-align: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.ptz-value {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--ptz-color);
+    text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+    transition: all 0.3s ease;
+}
+
+.ptz-unit {
+    font-size: 20px;
+    margin-top: 10px;
+    opacity: 0.7;
+}
+
+/* Чутливість */
+.sensitivity-control {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.sensitivity-label {
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+.sensitivity-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--sensitivity-color);
+    margin-top: 5px;
+}
+
+/* Кнопка */
+.increase-btn {
+    background-color: var(--btn-color);
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.increase-btn:hover {
+    background-color: var(--btn-hover-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.4);
+}
+
+.increase-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 10px rgba(255, 152, 0, 0.3);
+}
+
+.btn-icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Футер */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0.7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.made-by {
+    font-size: 14px;
+}
+
+.emoji {
     font-size: 18px;
 }
-.sensitivity {
-    margin: 20px 0;
+
+/* Анімаційні ефекти */
+.glow-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
 }
-#sensitivity {
-    font-weight: bold;
+
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
 }
-.footer {
-    margin-top: 20px;
-    font-size: 12px;
+
+.particle {
+    position: absolute;
+    background-color: var(--particle-color);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Панель налаштувань */
+.settings-panel {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 300px;
+    height: 100%;
+    background-color: var(--device-bg-color);
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease;
+    z-index: 100;
+}
+
+.settings-panel.active {
+    right: 0;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.setting-item label {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.setting-item input[type="range"] {
+    width: 100%;
+    height: 10px;
+    background: var(--divider-color);
+    border-radius: 5px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.setting-item input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.setting-item select {
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--divider-color);
+    padding: 8px;
+    border-radius: 5px;
+}
+
+/* Анімації */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Темна тема */
+.dark-theme {
+    --main-bg-color: #000;
+    --device-bg-color: #111;
+    --text-color: #ccc;
+    --accent-color: #ff7043;
+    --divider-color: #222;
+}
+
+/* Респонсивність */
+@media (max-width: 500px) {
+    .device-container {
+        padding: 20px;
+        border-radius: 15px;
+    }
+    
+    .title {
+        font-size: 24px;
+    }
+    
+    .ptz-value {
+        font-size: 60px;
+    }
+    
+    .increase-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+}
+
+/* Додаткові стилі для різних значень */
+.value-max {
+    color: #f44336 !important;
+    text-shadow: 0 0 20px rgba(244, 67, 54, 0.7) !important;
+}
+
+.value-high {
+    color: #ff9800 !important;
+    text-shadow: 0 0 15px rgba(255, 152, 0, 0.5) !important;
+}
+
+.value-medium {
+    color: #ffeb3b !important;
+    text-shadow: 0 0 10px rgba(255, 235, 59, 0.3) !important;
+}
+
+.value-low {
+    color: #8bc34a !important;
+    text-shadow: 0 0 5px rgba(139, 195, 74, 0.2) !important;
+}
+
+/* Спеціальні ефекти при натисканні */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Градієнтний фон */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #333 0%, #000 100%);
+    z-index: -1;
 }
